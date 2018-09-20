@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+    gitlab:
+        image: gitlab/gitlab-ce:latest
+        container_name : git
+        ports:
+            - 8888:80/tcp
+        networks:
+            git:
+                aliases:
+                    - gitlab
+        volumes:
+            - /usr/local/gitlab/config:/etc/gitlab
+            - /usr/local/gitlab/logs:/var/log/gitlab
+            - /usr/local/gitlab/data:/var/opt/gitlab
+            - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+            - /usr/local/gitlab/gitlab-rails:/var/opt/gitlab/gitlab-rails
+        logging:
+            driver: json-file
+            options:
+                max-file: '3'
+                max-size: 100m
+        restart: always
+networks:
+    git:
+        external: true

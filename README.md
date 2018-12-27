@@ -5,9 +5,6 @@ docker-compose up --build -d
 ## 3.修改配置文件
 sed -i "s@# external_url 'GENERATED_EXTERNAL_URL'@external_url 'http://192.168.1.96'@g" /usr/local/gitlab/config/gitlab.rb  
 
-## 修改第十三行vi /usr/local/gitlab/gitlab-rails/etc/gitlab.yml  
-host: 192.168.1.96
-
 ## 3.进入重启 停掉gitlab  
 docker exec -it git /bin/bash  
 gitlab-ctl stop
@@ -18,7 +15,10 @@ vi /etc/gitlab/gitlab.rb
 
 
 ## 5.启动gitlab  
-gitlab-ctl reconfigure && gitlab-ctl restart   
+gitlab-ctl reconfigure && gitlab-ctl restart && exit  
+
+## 修改第十三行vi /usr/local/gitlab/gitlab-rails/etc/gitlab.yml  
+host: 192.168.1.96  
 
 ## 6.退出 git 容器  
 docker restart git

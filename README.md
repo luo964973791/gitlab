@@ -1,24 +1,54 @@
-## 1.创建网络  
-docker network create git  
-## 2.启动gitlab  
-docker-compose up --build -d 
-## 3.修改配置文件
-sed -i "s@# external_url 'GENERATED_EXTERNAL_URL'@external_url 'http://192.168.1.96'@g" /usr/local/gitlab/config/gitlab.rb  
+### docker启动gitlab
 
-## 3.进入重启 停掉gitlab  
-docker exec -it git /bin/bash  
-gitlab-ctl stop
+```javascript
+mkdir /data/gitlab
+```
 
-## 4.编辑 gitlab.rb 改成自己的ip,注意把#号去掉  
-vi /etc/gitlab/gitlab.rb  
-将 # external_url 'GENERATED_EXTERNAL_URL' 改成   external_url 'http://192.168.1.6'  
+### 启动gitlab
 
+```javascript
+vi start-gitlab.sh
+#!/bin/bash
+HOST_NAME=172.27.0.5    #本机IP地址
+GITLAB_DIR=/data/gitlab
+docker stop gitlab
+docker rm gitlab
+docker run -d \
+    --hostname ${HOST_NAME} \
+    -p 8443:443 -p 82:82 -p 2222:22 \
+    --name gitlab \
+    -v ${GITLAB_DIR}/config:/etc/gitlab \
+    -v ${GITLAB_DIR}/logs:/var/log/gitlab \
+    -v ${GITLAB_DIR}/data:/var/opt/gitlab \
+    gitlab/gitlab-ce:latest
 
-## 5.启动gitlab  
-gitlab-ctl reconfigure && gitlab-ctl restart && exit  
+    
+#启动
+sh start-gitlab.sh
+```
 
-## 修改第十三行vi /usr/local/gitlab/gitlab-rails/etc/gitlab.yml  
-host: 192.168.1.96  
+### 修改参数
 
-## 6.退出 git 容器  
-docker restart git
+```javascript
+vi /data/gitlab/config/gitlab.rb
+
+#本地IP地址，端口不变.
+external_url 'http://192.168.2.102:82'
+
+# https需要下面这句
+# nginx['redirect_http_to_https_port'] = 82
+ 
+nginx['listen_port'] = 82
+ 
+# 配置2222端口
+gitlab_rails['gitlab_shell_ssh_port'] = 2222
+```
+
+![./image/1.png](./image/1.png)
+
+### 重启
+
+```javascript
+sh start-gitlab.sh
+```
+

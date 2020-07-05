@@ -36,7 +36,7 @@ vi /data/gitlab/config/gitlab.rb
 external_url 'http://192.168.2.102:32080'
 
 # https需要下面这句
-# nginx['redirect_http_to_https_port'] = 80
+# nginx['redirect_http_to_https_port'] = 443
  
 nginx['listen_port'] = 80
  

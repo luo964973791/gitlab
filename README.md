@@ -17,6 +17,7 @@ docker run -d \
     --hostname ${HOST_NAME} \
     -p 8443:443 -p 32080:80 -p 2222:22 \
     --name gitlab \
+    --restart=always \
     -v ${GITLAB_DIR}/config:/etc/gitlab \
     -v ${GITLAB_DIR}/logs:/var/log/gitlab \
     -v ${GITLAB_DIR}/data:/var/opt/gitlab \

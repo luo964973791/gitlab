@@ -1,0 +1,39 @@
+version: '3'
+services:
+  web:
+    container_name: 'gitlab'
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: '172.27.0.6'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://172.27.0.6:30080'
+        gitlab_rails['gitlab_shell_ssh_port'] = 30022
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        gitlab_rails['smtp_enable'] = true
+        gitlab_rails['smtp_address'] = "smtp.qq.com"
+        gitlab_rails['smtp_port'] = 465
+        gitlab_rails['smtp_user_name'] = "1145023603@qq.com"
+        gitlab_rails['smtp_password'] = "passwd"
+        gitlab_rails['smtp_authentication'] = "login"
+        gitlab_rails['smtp_enable_starttls_auto'] = false
+        gitlab_rails['smtp_tls'] = true
+        gitlab_rails['openssl_verify_mode'] = false
+        gitlab_rails['smtp_openssl_verify_mode'] = 'none'
+        gitlab_rails['smtp_pool'] = false
+        gitlab_rails['gitlab_email_from'] = '1145023603@qq.com'
+        gitlab_rails['gitlab_email_display_name'] = 'gitlab admin'
+        gitlab_rails['initial_root_password'] = 'Test@123'
+        gitlab_rails['initial_root_email'] = '1145023603@qq.com'
+    ports:
+      - '30080:30080'
+      - '30443:443'
+      - '30022:22'
+    volumes:
+      - '/data/gitlab/config:/etc/gitlab'
+      - '/data/gitlab/logs:/var/log/gitlab'
+      - '/data/gitlab/data:/var/opt/gitlab'
+    shm_size: '512m'
+#docker exec -it gitlab /bin/bash
+#Notify.test_email(test_email, 'Message Subject', 'Message Body').deliver_now
+#Notify.test_email('1145023603@qq.com', 'Gitlab测试邮件.', '这是一封测试邮件，用于检测Gitlab邮件服务配置情况。').deliver_now

@@ -23,7 +23,7 @@ services:
         gitlab_rails['smtp_pool'] = false
         gitlab_rails['gitlab_email_from'] = 'xx@qq.com'
         gitlab_rails['gitlab_email_display_name'] = 'gitlab admin'
-        gitlab_rails['initial_root_password'] = 'xx'
+        gitlab_rails['initial_root_password'] = 'xx'  #登录界面的root密码
         gitlab_rails['initial_root_email'] = 'xx@qq.com'
     ports:
       - '30080:30080'

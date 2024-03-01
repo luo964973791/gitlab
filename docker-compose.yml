@@ -36,4 +36,4 @@ services:
     shm_size: '512m'
 #docker exec -it gitlab /bin/bash
 #Notify.test_email(test_email, 'Message Subject', 'Message Body').deliver_now
-#Notify.test_email('1145023603@qq.com', 'Gitlab测试邮件.', '这是一封测试邮件，用于检测Gitlab邮件服务配置情况。').deliver_now
+#Notify.test_email('xx@qq.com', 'Gitlab测试邮件.', '这是一封测试邮件，用于检测Gitlab邮件服务配置情况。').deliver_now

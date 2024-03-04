@@ -35,5 +35,10 @@ services:
       - '/data/gitlab/data:/var/opt/gitlab'
     shm_size: '512m'
 #docker exec -it gitlab /bin/bash
+#gitlab-psql -d gitlabhq_production
+#UPDATE users SET email = '123456@qq.com' WHERE email = 'admin@example.com';
+#exit
+#\q
 #Notify.test_email(test_email, 'Message Subject', 'Message Body').deliver_now
 #Notify.test_email('xx@qq.com', 'Gitlab测试邮件.', '这是一封测试邮件，用于检测Gitlab邮件服务配置情况。').deliver_now
+

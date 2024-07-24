@@ -51,5 +51,7 @@ gitlab_rails['gitlab_shell_ssh_port'] = 2222
 
 ```javascript
 sh start-gitlab.sh
+user: root
+password: $(cat /data/gitlab/config/initial_root_password | grep Password: | awk '{print $2}')
 ```
 
